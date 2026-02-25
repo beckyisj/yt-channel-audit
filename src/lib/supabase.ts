@@ -102,6 +102,17 @@ export async function getHistory(userId?: string, sessionId?: string) {
   return query;
 }
 
+export async function getAuditById(id: string) {
+  const supabase = getServiceClient();
+  const { data, error } = await supabase
+    .from("channel_audits")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error || !data) return null;
+  return data;
+}
+
 export async function migrateSessionToUser(
   sessionId: string,
   userId: string

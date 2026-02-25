@@ -22,6 +22,7 @@ export default function Home() {
   const [analysis, setAnalysis] = useState<ChannelAnalysis | null>(null);
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [recommendationsLoading, setRecommendationsLoading] = useState(false);
+  const [auditId, setAuditId] = useState<string | null>(null);
   const [paywall, setPaywall] = useState<{ count: number; limit: number; reason?: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState("");
@@ -68,6 +69,7 @@ export default function Home() {
     setAnalysis(null);
     setRecommendations([]);
     setRecommendationsLoading(false);
+    setAuditId(null);
     setPaywall(null);
     setError(null);
     setErrorContext(undefined);
@@ -120,6 +122,7 @@ export default function Home() {
 
         const channelAnalysis = analyzeData.analysis as ChannelAnalysis;
         setAnalysis(channelAnalysis);
+        setAuditId(analyzeData.auditId || null);
 
         updateStep(0, "done", channelAnalysis.channelInfo.title);
         updateStep(1, "done", `${analyzeData.videoCount} videos fetched`);
@@ -172,6 +175,7 @@ export default function Home() {
     setAnalysis(audit.analysis_data as ChannelAnalysis);
     setRecommendations((audit.recommendations as Recommendation[]) || []);
     setRecommendationsLoading(false);
+    setAuditId(audit.id || null);
     setSteps([
       { label: "Resolving channel", status: "done", detail: audit.channel_title as string },
       { label: "Fetching all videos", status: "done" },
@@ -254,6 +258,7 @@ export default function Home() {
               analysis={analysis}
               recommendations={recommendations}
               recommendationsLoading={recommendationsLoading}
+              auditId={auditId}
             />
           )}
         </div>

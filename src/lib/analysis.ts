@@ -12,6 +12,12 @@ export interface PerformanceTier {
   videos: VideoData[];
 }
 
+export interface TitlePatternVideo {
+  title: string;
+  videoId: string;
+  viewCount: number;
+}
+
 export interface TitlePattern {
   name: string;
   pattern: RegExp;
@@ -21,6 +27,7 @@ export interface TitlePattern {
   avgViewsWithout: number;
   lift: number;
   direction: "positive" | "negative" | "neutral";
+  matchingVideos: TitlePatternVideo[];
 }
 
 export interface DurationBucket {
@@ -167,6 +174,12 @@ export function analyzeTitlePatterns(longFormVideos: VideoData[]): TitlePattern[
       ? Math.round(((avgViewsWith - avgViewsWithout) / avgViewsWithout) * 100)
       : 0;
 
+    // Include top matching videos sorted by views (max 5)
+    const matchingVideos = matching
+      .sort((a, b) => b.viewCount - a.viewCount)
+      .slice(0, 5)
+      .map((v) => ({ title: v.title, videoId: v.videoId, viewCount: v.viewCount }));
+
     return {
       name,
       pattern,
@@ -176,6 +189,7 @@ export function analyzeTitlePatterns(longFormVideos: VideoData[]): TitlePattern[
       avgViewsWithout,
       lift,
       direction: lift > 15 ? "positive" : lift < -15 ? "negative" : "neutral" as const,
+      matchingVideos,
     };
   });
 }
@@ -187,7 +201,8 @@ export function analyzeDuration(longFormVideos: VideoData[]): DurationBucket[] {
     { label: "10-15 min", minSeconds: 600, maxSeconds: 900 },
     { label: "15-20 min", minSeconds: 900, maxSeconds: 1200 },
     { label: "20-30 min", minSeconds: 1200, maxSeconds: 1800 },
-    { label: "30-60 min", minSeconds: 1800, maxSeconds: 3600 },
+    { label: "30-45 min", minSeconds: 1800, maxSeconds: 2700 },
+    { label: "45-60 min", minSeconds: 2700, maxSeconds: 3600 },
     { label: "60+ min", minSeconds: 3600, maxSeconds: Infinity },
   ];
 
