@@ -54,7 +54,7 @@ function PatternRow({
         </div>
       </button>
 
-      {expanded && pattern.matchingVideos.length > 0 && (
+      {expanded && pattern.matchingVideos?.length > 0 && (
         <div className={`ml-5 mt-1 mb-1 rounded-lg px-3 py-2 ${isPositive ? "bg-teal-50/50" : "bg-red-50/50"}`}>
           {pattern.matchingVideos.map((v) => (
             <a
