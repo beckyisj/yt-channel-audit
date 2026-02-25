@@ -9,16 +9,17 @@ function formatNumber(n: number): string {
 }
 
 export default function ChannelSnapshot({ analysis }: { analysis: ChannelAnalysis }) {
-  const { channelInfo, totalVideos, longFormCount, shortsCount, medianViews, avgViews, uploadCadence, engagementRate } = analysis;
+  const { channelInfo, totalVideos, longFormCount, shortsCount } = analysis;
+  const recent = analysis.recentStats;
 
   const stats = [
     { label: "Subscribers", value: formatNumber(channelInfo.subscriberCount) },
     { label: "Total Views", value: formatNumber(channelInfo.viewCount) },
     { label: "Videos", value: `${totalVideos} (${longFormCount} long, ${shortsCount} shorts)` },
-    { label: "Median Views", value: formatNumber(medianViews), sublabel: "long-form" },
-    { label: "Avg Views", value: formatNumber(avgViews), sublabel: "long-form" },
-    { label: "Upload Rate", value: `${uploadCadence.avgUploadsPerMonth}/mo` },
-    { label: "Engagement", value: `${engagementRate}%`, sublabel: "likes/views" },
+    { label: "Median Views", value: recent ? formatNumber(recent.medianViews) : formatNumber(analysis.medianViews), sublabel: recent ? "long-form, last 12 mo" : "long-form" },
+    { label: "Avg Views", value: recent ? formatNumber(recent.avgViews) : formatNumber(analysis.avgViews), sublabel: recent ? "long-form, last 12 mo" : "long-form" },
+    { label: "Upload Rate", value: recent ? `${recent.uploadsPerMonth}/mo` : `${analysis.uploadCadence.avgUploadsPerMonth}/mo`, sublabel: recent ? "last 12 mo" : undefined },
+    { label: "Engagement", value: `${recent ? recent.engagementRate : analysis.engagementRate}%`, sublabel: recent ? "likes/views, last 12 mo" : "likes/views" },
   ];
 
   return (
@@ -34,7 +35,7 @@ export default function ChannelSnapshot({ analysis }: { analysis: ChannelAnalysi
           )}
         </div>
       </div>
-      <p className="text-xs text-stone-400 mb-3">A high-level overview of the channel's size, output, and engagement.</p>
+      <p className="text-xs text-stone-400 mb-3">Channel overview. Performance stats are from the last 12 months.</p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {stats.map((stat) => (
           <div key={stat.label} className="bg-stone-50 rounded-lg p-3">

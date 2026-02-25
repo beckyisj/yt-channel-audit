@@ -77,6 +77,16 @@ export interface UploadCadence {
   avgUploadsPerWeek: number;
 }
 
+export interface RecentStats {
+  medianViews: number;
+  avgViews: number;
+  uploadsPerMonth: number;
+  engagementRate: number;
+  videoCount: number;
+  longFormCount: number;
+  shortsCount: number;
+}
+
 export interface ChannelAnalysis {
   channelInfo: ChannelInfo;
   totalVideos: number;
@@ -84,6 +94,7 @@ export interface ChannelAnalysis {
   shortsCount: number;
   medianViews: number;
   avgViews: number;
+  recentStats: RecentStats;
   performanceTiers: PerformanceTier[];
   topVideos: VideoData[];
   formatSplit: FormatSplit;
@@ -332,6 +343,37 @@ export function analyzeChannel(
       ) / 100
     : 0;
 
+  // Recent stats (last 12 months)
+  const twelveMonthsAgo = new Date();
+  twelveMonthsAgo.setFullYear(twelveMonthsAgo.getFullYear() - 1);
+  const cutoff = twelveMonthsAgo.toISOString();
+
+  const recentVideos = videos.filter((v) => v.publishedAt >= cutoff);
+  const recentLongForm = recentVideos.filter((v) => !v.isShort);
+  const recentShorts = recentVideos.filter((v) => v.isShort);
+  const recentLongFormViews = recentLongForm.map((v) => v.viewCount);
+
+  const recentEngagement = recentLongForm.filter((v) => v.viewCount >= 500);
+  const recentEngagementRate = recentEngagement.length > 0
+    ? Math.round(
+        (recentEngagement.reduce((s, v) => s + (v.likeCount / v.viewCount) * 100, 0) /
+          recentEngagement.length) *
+          100
+      ) / 100
+    : 0;
+
+  const recentStats: RecentStats = {
+    medianViews: median(recentLongFormViews),
+    avgViews: avg(recentLongFormViews),
+    uploadsPerMonth: recentVideos.length > 0
+      ? Math.round((recentVideos.length / 12) * 10) / 10
+      : 0,
+    engagementRate: recentEngagementRate,
+    videoCount: recentVideos.length,
+    longFormCount: recentLongForm.length,
+    shortsCount: recentShorts.length,
+  };
+
   return {
     channelInfo,
     totalVideos: videos.length,
@@ -339,6 +381,7 @@ export function analyzeChannel(
     shortsCount: shorts.length,
     medianViews,
     avgViews,
+    recentStats,
     performanceTiers: calculatePerformanceTiers(longFormVideos, medianViews),
     topVideos: longFormVideos.slice(0, 10), // already sorted by views desc
     formatSplit: analyzeFormatSplit(videos),
