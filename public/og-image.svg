@@ -1,0 +1,21 @@
+<svg width="1200" height="1200" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="1200">
+      <stop offset="0%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="1200" rx="120" fill="url(#bg)"/>
+  <!-- Bar chart icon -->
+  <rect x="300" y="600" width="120" height="280" rx="12" fill="white"/>
+  <rect x="480" y="450" width="120" height="430" rx="12" fill="white"/>
+  <rect x="660" y="320" width="120" height="560" rx="12" fill="white"/>
+  <!-- Trend line -->
+  <path d="M360 560 L540 410 L720 280" stroke="white" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6"/>
+  <!-- Arrow up -->
+  <path d="M720 280 L720 240 M720 240 L690 270 M720 240 L750 270" stroke="white" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6"/>
+  <!-- Text -->
+  <text x="600" y="1020" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="700" font-size="72" fill="white" opacity="0.95">Channel Audit</text>
+  <text x="600" y="1080" text-anchor="middle" font-family="system-ui, sans-serif" font-weight="500" font-size="40" fill="white" opacity="0.6">YouTube Producer</text>
+</svg>
