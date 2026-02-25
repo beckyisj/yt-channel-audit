@@ -30,7 +30,7 @@ export default function UploadCadence({ data }: { data: UploadCadenceType }) {
                 </tr>
               </thead>
               <tbody>
-                {data.yearly.map((y) => (
+                {[...data.yearly].reverse().map((y) => (
                   <tr key={y.year} className="border-b border-stone-50">
                     <td className="py-1.5 text-xs text-stone-700">{y.year}</td>
                     <td className="py-1.5 text-xs text-stone-600 text-right">{y.count}</td>
@@ -46,7 +46,7 @@ export default function UploadCadence({ data }: { data: UploadCadenceType }) {
         <div>
           <p className="text-xs font-medium text-stone-600 mb-2">Last 12 Months</p>
           <div className="flex flex-col gap-1">
-            {data.monthly.map((m) => (
+            {[...data.monthly].reverse().map((m) => (
               <div key={m.month} className="flex items-center gap-2">
                 <span className="text-[10px] text-stone-500 w-14 shrink-0">{m.month}</span>
                 <div className="flex-1 h-3 bg-stone-100 rounded-full overflow-hidden">
