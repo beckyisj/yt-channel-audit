@@ -13,7 +13,8 @@ export default function UploadCadence({ data }: { data: UploadCadenceType }) {
 
   return (
     <div className="bg-white border border-stone-200 rounded-xl p-5">
-      <h3 className="font-semibold text-stone-900 text-sm mb-4">Upload Cadence</h3>
+      <h3 className="font-semibold text-stone-900 text-sm mb-1">Upload Cadence</h3>
+      <p className="text-xs text-stone-400 mb-4">How often the channel publishes, broken down by year and recent months. Useful for spotting consistency and whether output is increasing or decreasing.</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Yearly */}

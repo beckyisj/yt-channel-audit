@@ -17,7 +17,7 @@ export default function PerformanceTiers({ tiers, medianViews }: { tiers: Perfor
         <h3 className="font-semibold text-stone-900 text-sm">Performance Tiers</h3>
         <span className="text-xs text-stone-400">Median: {formatNumber(medianViews)} views</span>
       </div>
-      <p className="text-xs text-stone-400 mb-4">Based on long-form videos, relative to channel median</p>
+      <p className="text-xs text-stone-400 mb-4">Every long-form video sorted into tiers based on how it performed relative to the channel's median views. A healthy channel has most videos in Average with a few breakouts.</p>
 
       <div className="flex flex-col gap-2">
         {tiers.map((tier) => (

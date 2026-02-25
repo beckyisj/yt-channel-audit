@@ -34,6 +34,7 @@ export default function ChannelSnapshot({ analysis }: { analysis: ChannelAnalysi
           )}
         </div>
       </div>
+      <p className="text-xs text-stone-400 mb-3">A high-level overview of the channel's size, output, and engagement.</p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {stats.map((stat) => (
           <div key={stat.label} className="bg-stone-50 rounded-lg p-3">

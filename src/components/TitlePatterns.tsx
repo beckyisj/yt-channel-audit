@@ -91,7 +91,7 @@ export default function TitlePatterns({ patterns }: { patterns: TitlePattern[] }
     <div className="bg-white border border-stone-200 rounded-xl p-5">
       <h3 className="font-semibold text-stone-900 text-sm mb-1">Title Patterns</h3>
       <p className="text-xs text-stone-400 mb-4">
-        Lift = avg views with pattern vs without (long-form only, min 3 matches). Click to see examples.
+        We check each title for common patterns (numbers, questions, emotional words, etc.) and compare the average views of videos with that pattern vs without. Positive lift means videos with that pattern get more views on average. Click any pattern to see matching titles.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

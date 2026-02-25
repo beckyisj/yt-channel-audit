@@ -42,7 +42,8 @@ export default function Recommendations({
 
   return (
     <div className="bg-white border border-stone-200 rounded-xl p-5">
-      <h3 className="font-semibold text-stone-900 text-sm mb-4">AI Recommendations</h3>
+      <h3 className="font-semibold text-stone-900 text-sm mb-1">AI Recommendations</h3>
+      <p className="text-xs text-stone-400 mb-4">Actionable suggestions generated from the data above. Ranked by potential impact — start with the high-priority items.</p>
       <div className="flex flex-col gap-3">
         {recommendations.map((rec, i) => (
           <div

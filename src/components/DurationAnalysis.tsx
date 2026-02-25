@@ -15,7 +15,7 @@ export default function DurationAnalysis({ buckets }: { buckets: DurationBucket[
     <div className="bg-white border border-stone-200 rounded-xl p-5">
       <h3 className="font-semibold text-stone-900 text-sm mb-1">Duration Sweet Spots</h3>
       <p className="text-xs text-stone-400 mb-4">
-        Long-form videos only. Best bucket needs 3+ videos to qualify.
+        Median views by video length. Shows which durations perform best for this channel. Buckets need at least 3 videos to be considered for "Best" — small samples can be misleading.
       </p>
 
       <div className="flex flex-col gap-2">

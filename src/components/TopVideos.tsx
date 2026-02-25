@@ -19,7 +19,8 @@ function formatDuration(seconds: number): string {
 export default function TopVideos({ videos }: { videos: VideoData[] }) {
   return (
     <div className="bg-white border border-stone-200 rounded-xl p-5">
-      <h3 className="font-semibold text-stone-900 text-sm mb-3">Top 10 Videos (All Time)</h3>
+      <h3 className="font-semibold text-stone-900 text-sm mb-1">Top 10 Videos (All Time)</h3>
+      <p className="text-xs text-stone-400 mb-3">The channel's best-performing long-form videos by view count. Look for patterns in topic, title style, and length.</p>
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>

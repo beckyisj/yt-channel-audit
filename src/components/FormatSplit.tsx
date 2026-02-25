@@ -15,7 +15,8 @@ export default function FormatSplit({ data }: { data: FormatSplitType }) {
 
   return (
     <div className="bg-white border border-stone-200 rounded-xl p-5">
-      <h3 className="font-semibold text-stone-900 text-sm mb-4">Shorts vs Long-form</h3>
+      <h3 className="font-semibold text-stone-900 text-sm mb-1">Shorts vs Long-form</h3>
+      <p className="text-xs text-stone-400 mb-4">How the channel splits its output between Shorts (under 60 seconds) and long-form videos, and how each format performs.</p>
 
       {/* Visual bar */}
       <div className="h-3 rounded-full overflow-hidden flex mb-4">
