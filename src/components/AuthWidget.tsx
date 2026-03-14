@@ -85,6 +85,19 @@ export default function AuthWidget({ onOpenHistory, onOpenFeedback }: AuthWidget
     setMode("magic");
   };
 
+  // Close sign-in dropdown on outside click
+  const signInRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!showModal) return;
+    const handler = (e: MouseEvent) => {
+      if (signInRef.current && !signInRef.current.contains(e.target as Node)) {
+        setShowModal(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [showModal]);
+
   if (isLoading) return null;
 
   if (!user) {
@@ -97,22 +110,16 @@ export default function AuthWidget({ onOpenHistory, onOpenFeedback }: AuthWidget
           >
             History
           </button>
-          <button
-            onClick={openModal}
-            className="text-sm text-stone-500 hover:text-stone-700 transition-colors"
-          >
-            Sign in
-          </button>
-        </div>
+          <div className="relative" ref={signInRef}>
+            <button
+              onClick={openModal}
+              className="text-sm text-stone-500 hover:text-stone-700 transition-colors"
+            >
+              Sign in
+            </button>
 
-        {showModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div
-              className="absolute inset-0 bg-stone-900/20 backdrop-blur-sm"
-              onClick={() => setShowModal(false)}
-              aria-hidden
-            />
-            <div className="relative bg-white border border-stone-200 rounded-2xl shadow-xl max-w-sm w-full p-6 space-y-4">
+            {showModal && (
+              <div className="absolute right-0 top-full mt-2 bg-white border border-stone-200 rounded-2xl shadow-xl w-80 p-5 space-y-4 z-50">
               <h3 className="text-lg font-semibold text-stone-900">
                 {mode === "signup" ? "Create account" : "Sign in"}
               </h3>
@@ -227,8 +234,9 @@ export default function AuthWidget({ onOpenHistory, onOpenFeedback }: AuthWidget
                 </>
               )}
             </div>
+            )}
           </div>
-        )}
+        </div>
       </>
     );
   }
